@@ -91,17 +91,18 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             }
         }
 
-        var urlComponents = URLComponents(string: connection!.url)
-        if let urlScheme = urlComponents?.scheme {
-            if urlScheme.hasPrefix("https") {
-                urlComponents?.scheme = "wss"
-            } else if urlScheme.hasPrefix("http") {
-                urlComponents?.scheme = "ws"
-            }
-        }
+        // some server not surpport ws/wss protocol, use http/https directly
+//        var urlComponents = URLComponents(string: connection!.url)
+//        if let urlScheme = urlComponents?.scheme {
+//            if urlScheme.hasPrefix("https") {
+//                urlComponents?.scheme = "wss"
+//            } else if urlScheme.hasPrefix("http") {
+//                urlComponents?.scheme = "ws"
+//            }
+//        }
 
         do {
-            let baseUrl = try urlComponents?.asURL()
+            let baseUrl = URL(string: connection!.url)
 
             let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
 
