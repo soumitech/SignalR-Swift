@@ -12,7 +12,7 @@ public class AutoTransport: HttpTransport {
     var transports = [ClientTransportProtocol]()
     var transport: ClientTransportProtocol?
 
-    override convenience init() {
+    public override convenience init() {
         let transports = [
             WebSocketTransport(),
             ServerSentEventsTransport(),
@@ -22,7 +22,7 @@ public class AutoTransport: HttpTransport {
         self.init(withTransports: transports)
     }
 
-    init(withTransports transports: [ClientTransportProtocol]) {
+    public init(withTransports transports: [ClientTransportProtocol]) {
         self.transports = transports
     }
 
